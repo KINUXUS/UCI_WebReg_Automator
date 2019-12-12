@@ -20,8 +20,10 @@ class WebReg(object):
     from ._study_list import get_study_list
     driver = None
     timeout = 10
+    debug = False
 
-    def __init__(self, URL='https://www.reg.uci.edu/cgi-bin/webreg-redirect.sh', headless=True, window_size=(1366, 768)):
+    def __init__(self, URL='https://www.reg.uci.edu/cgi-bin/webreg-redirect.sh', headless=True, window_size=(1366, 768), debug=False):
+        self.debug = debug
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--ignore-certificate-errors')
         chrome_options.add_argument("--test-type")
@@ -33,14 +35,16 @@ class WebReg(object):
         self.driver.set_window_size(
             window_size[0], window_size[1], self.driver.window_handles[0])
         self.driver.get(URL)
-        logging.info('Current URL: {}'.format(self.driver.current_url))
-        logging.info('Get title: {}'.format(self.driver.title))
+        if self.debug:
+            logging.info('Current URL: {}'.format(self.driver.current_url))
+            logging.info('Get title: {}'.format(self.driver.title))
 
     def __del__(self):
-        if not self.get_logout_status():
-            self.logout(suppress_warning=True)
-        self.driver.close()
-        logging.info("Driver has been closed.")
+        if not self.debug:
+            if not self.get_logout_status():
+                self.logout(suppress_warning=True)
+            self.driver.close()
+            logging.info("Driver has been closed.")
 
     def _pause(self, ms_min=100, ms_max=800):
         sleep(randint(ms_min, ms_max) * 0.001)
@@ -77,7 +81,7 @@ class WebReg(object):
 
     def logout(self, class_name='WebRegLogoutButton', suppress_warning=False):
         self._wait_until_present(By.CLASS_NAME, class_name)
-        buttons = self.driver.find_elements_by_name(class_name)
+        buttons = self.driver.find_elements_by_class_name(class_name)
         if len(buttons) > 0:
             buttons[0].click()
         else:

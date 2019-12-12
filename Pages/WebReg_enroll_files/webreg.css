@@ -1,0 +1,492 @@
+/*  This is the CSS file for the Registrar's WebReg menus, including
+ *  banner, navigation menu bar, and web page footer.  By placing it
+ *  into a separate file on www.reg.uci.edu, we hope to limit the load
+ *  on the WebReg server(s).
+ *
+ *  To use this style sheet, insert something like the following into
+ *  your <head> section:
+ *
+  	<link rel="stylesheet" href="https://www.reg.uci.edu/css/webreg.css" type="text/css" title="WebReg Styles" />
+ *
+ *  You may also need to include an override for IE browsers for 
+ *  "#webreg-login-box input" to limit the width of the user buttons.
+ *			Garr Updegraff, 2009-03-18, garru(at)uci.edu
+*/
+
+	/* No need for the following to increase tiny default font for IE 5 & 6. */
+	/* * html body { font-size: 120%; } */
+
+        /*      BEGIN GLOBAL STYLES */
+
+        /* Set all font sizes to 16 pixels, common across all browsers. */
+        * {
+                font-size: 14px;
+                font-weight: normal;
+		/* GU: Elizabeth hates serif fonts, so force sans-serif. */
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+        }
+
+        /* Don't allow wrapping within forms. */
+        form * {  white-space: nowrap;  }
+
+        body {  /* Turn off body's top and side margins and padding. */
+            margin: 0 0 4px 0;  padding: 0;
+        }
+
+        /* "tbl-container" below holds the entire header block, allowing  */
+        /*    the browser to expand yet keeping the header in the center. */
+
+        #tbl-container-flex {   /*  Full page width (100%) version. */
+                background-color: white;
+                width: 100%;
+                color: #000000;
+        }
+        /* Turn off general table padding within header/banner section. */
+        #tbl-container-flex * {
+                padding: 0;
+                font-size: 13px;        /* Smaller font in banner. */
+                font-weight: bold;
+                text-decoration: none;  /* No link underlining. */
+        }
+
+        #maps {  /* For "Contact us" line at top of page. */
+                float: left;
+                padding-left: .5em;
+                /* color: #000000; */
+        }
+        #maps * {  /* For "Contact us" line at top of page. */
+                font-size: 10px;        /* Smaller font here. */
+                font-weight: normal;
+                text-transform: uppercase;
+        }
+
+        #datetime {
+                float: right;
+                color: #000000;
+                font-size: 10px;
+                font-weight: normal;
+                text-transform: uppercase;
+                text-align: right
+        }
+
+        /* Registrar Office banner */
+        #hdr-row { height: 73px; }
+
+        #hdr-td {
+                background-image:
+                    url("https://www.reg.uci.edu/images/reg_webreg_2line.jpg");
+                background-color: #B5C2D3;
+                background-repeat: repeat-y;
+
+        }
+
+        #mouseover {
+                float:left;
+                text-align:left;
+        }
+        #mouseover img {
+                /* Turn off web-link border. */
+                border: none;
+        }
+
+        #srchbox{
+                float: right;
+                color: #FFFFFF;
+                padding-top: 1em;
+                right: 10px;
+        }
+
+        /* IE5 Mac hack. IE 5 can't see next line; other browsers can. \*/
+            #srchbox { text-align: left; }
+        /* End IE Hack */
+
+        #srchbox .srchbutton { padding-bottom: .5em; }
+
+        /* Place Reg Office search box at middle right of banner image. */
+        #srchbox-g {
+                position: relative;
+                float: right;
+                width: 280px;
+                margin: 10px 20px 0 0;
+                padding: 0;
+                overflow: hidden;
+                /* border: green 1px solid;   /* debug */
+        }
+        #srchbox-g form {   /* Web form for the search field. */
+                padding: 0;
+                margin: 0;
+                /* border: purple 2px solid;   /* debug */
+        }
+        #srchbox-g h3 {  /* Title text for the search box. */
+                display: block;
+                overflow: hidden;
+                text-align: left;
+                padding: 0 0 5px 0;
+                margin: 0;
+                color: #FFF; /* #FFE is more visible yellow tint. */
+                font-weight: normal;
+		font-size: 16px;
+                white-space: nowrap;
+                /* turn off Jenny's horizontal line for regular h3 headers: */
+                background-image: none;
+                /* border: black 3px solid;   /* debug */
+        }
+        #srchbox-button {  /* UCI's hokey "Go" button for the search box. */
+                /* Place "Go" image at far right, just above input box. */
+                position: absolute;
+                top: 0px;
+                left: 235px;
+                /* border: red 1px solid;   /* debug */
+        }
+        #srchbox-input {
+                /* Extend "search" input field 20 pixels from right edge. */
+                display: block;
+                width: 270px;
+                height: 1.3em;
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+                font-weight: normal;
+                /* vertical-align: middle; */
+        }
+
+
+        /* 060126 cc - duplicated entries for expandable width using <td>s */
+        #audience_nav_background { background-color: #335588; }
+
+        #audience_nav-flex td {
+                text-align: center;
+                background-color: #335588;
+                color: #ffe273;
+                font-size: 16px;  /* Enlarge font for ':' separation marks. */
+                font-weight: bold;
+                text-decoration: none;
+                padding: 0px 0px 2px 0px;
+        }
+
+        #audience_nav-flex a {
+                color: #ffffff;  /* Make links white. */
+                /* Wish there was a way to turn off "bold" for Safari only. */
+        }
+
+        #audience_nav-flex a:hover {
+                /* Pale yellow background during hover. */
+                background-color: #FBEDB5;
+                color: #335588;
+                /* 060125 cc - added to copy www.gse.uci.edu, who */
+                /*      made the hover look better.               */
+                padding: 0px 0px 2px 0px;
+        }
+
+        /* ********************************************************/
+        /* Put back some of the menubar default margins & padding */
+        /* ********************************************************/
+        .tborder { border-top: 2px solid white; }
+        .bborder { border-bottom: 2px solid white; }
+
+
+        /* *****************************************************/
+        /* WebReg navigation buttons -- now listed vertically. */
+        /* *****************************************************/
+
+        .WebRegNavBar .vertButtons form {
+            /* Buttons listed vertically, with definitions. */
+            margin: 0 -0.1em;
+            padding: 0;
+            /* Use this setting to place buttons in vertical list. */
+            display: block;  text-align: left;  padding-top: 0.8em;
+            white-space: nowrap;
+        }
+                /*** Horizontal button settings are currently unused. */
+                .WebRegNavBar td.horzButtons {
+                        /* Buttons centered horizontally in same row. */
+                        text-align: center;
+                        padding-bottom: 1em;
+                        white-space: nowrap;
+                }
+                .WebRegNavBar .horzButtons form {
+                        /* Buttons listed horizontally in same row. */
+                        margin: 0 1em;
+                        padding: 0;
+                        display: inline;
+                        white-space: nowrap;
+                }
+
+
+        input.WebRegButton {  /* NavBar buttons. */
+                margin: 0;
+                padding: 0.1em 0.5em;
+                /* Lighter-blue button color. */
+                background-color: #ced6e2;
+                font-weight: bold;
+                border: 2px outset gray;
+        }
+        .vertButtons input.WebRegButton {
+                /* NavBar buttons in vertical button list.          */
+                /* Use this setting to make buttons the same size.  */
+                width: 12em;
+        }
+        input.WebRegLogoutButton  {
+                /* Special background color for logout button. */
+                width: auto;
+                background-color: #f6b28f;
+                font-size: 15px;
+        }
+        table.WebRegNavBar td.vertButtons form input.WebRegButton {
+                /* Font size override. */
+                font-size: 15px;
+        }
+
+        input:hover.WebRegButton {  /* Mouse hovers over NavBar button. */
+            border: 2px outset gray;
+            /* Pale yellow button background for hover. */
+            background-color: #fbedb5;
+        }
+        input:active.WebRegButton {  /* NavBar button being clicked. */
+            border: 2px inset gray;
+            /* Pale yellow button background while clicked. */
+            background-color: #fbedb5;
+        }
+        .WebRegButtonInfo  {
+            /* Text description to right of WebReg button. */
+            padding-left: 1em;
+            font-size: 16px;
+        }
+
+	h1.WebRegTitle  {
+	    margin-top: 1em;
+	    color: #083194;
+	    font-size: 24px;
+	    font-weight: bold;
+	}
+	h2.WebRegSubtitle  {
+	    margin: 1em 0 0.3em 0;
+	    color: #083194;
+	    font-size: 22px;
+	    font-weight: bold;
+	    text-align: center;
+	}
+
+        .WebRegInfoMsg  {
+            /* Response to user request for information. */
+            margin-top: 1.5em;
+            padding: 1em 1em;
+            width: 640px;
+            border-top: 3px #009 solid;
+            border-bottom: 3px #009 solid;
+            background-color: white;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #083194;
+        }
+
+        .WebRegErrorMsg  {
+            /* Red-bordered box with WebReg error message inside. */
+            margin: 1.5em 0 1em 0;
+            padding: 1em 1em;
+            width: 640px;
+            border: 4px #900 solid;
+            background-color: #ffefdd;
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+            color: #f00;
+        }
+
+        .DivHold {     /* "div" containing "hold" details. */
+            margin: 1.5em 0 1em 0;
+            padding: 0 1em;
+            width: 640px;
+            border: 4px #444 double;  /* Formerly red "#900" border. */
+            text-align: center;
+            color: #f00;
+            background-color: #d8d8d8;
+        }
+        .DivHold p {
+            margin: 0.8em 1em;
+            font-size: 130%;
+        }
+
+        table.studyList  {  /* Table displays student's course list. */
+            margin-top: 2em;
+            border-top: 3px #009 solid;
+            border-bottom: 3px #009 solid;
+        }
+        table.studyList th  {   /* Stores subheading for course list. */
+
+            text-align: center;
+            font-weight: bold;
+        }
+	table.studyList th h2  {    /* Section title sub-heading for course list. */
+	    margin: 0.8em 0 0 0;
+	    font-size: 21px;
+	    font-weight: bold;
+	    color: #083194;
+	}
+        table.studyList td {   /* Mono-spaced course listing from Cobol. */
+            text-align: left;
+            line-height: 14px;
+            white-space: pre;
+            font: normal  16px  Courier New,Courier,monospace;
+        }
+        table.studyList td p  {  /* Bold, mono-spaced column headings. */
+            margin: 0;
+            white-space: pre;
+            font: bold  16px  Courier New,Courier,monospace;
+        }
+        table.studyList td p u  {  /* ...bottom row underlined. */
+            font: bold  16px  Courier New,Courier,monospace;
+	    font-decoration: underline;
+        }
+
+        /* Logout menu styles below. */
+
+        .DivLogoutMsg {
+            margin: 2em 2em 3em 2em;
+            font-size: 22px;
+        }
+        .DivLogoutMsg h2 {
+            margin: 1em;
+            font-size: 22px;
+            text-transform: none;
+        }
+
+        #webreg-login-box {
+            float: right;
+            width: 7.5em;
+            margin: 0 0 15px 20px;
+            padding: 0;
+            /* light-blue background and border */
+            background-color: #99ccff;
+            border: 2px solid #99ccff;
+        }
+        #webreg-login-box h3 {
+            /* top heading for box, white on dark blue bg */
+            background-color: #003399;
+            margin: 0 0 0.5em 0;
+            padding: 1px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+	    font-size: 16px;
+        }
+        #webreg-login-box h4 {  /* sub-heading with each year */
+            margin: 0.5em 0 0 0;
+            padding-left: 0.2em 0.4em;
+            /* letter-spacing: 0.1em; */
+            white-space: nowrap;
+            font-weight: bold;
+	    font-size: 15px;
+        }
+        #webreg-login-box ul {  /* list of months */
+            margin: 0.1em 0.1em 0.5em 0.1em;
+            padding-left: 0.3em;
+            list-style-position: inside;
+            font-size: 12px;
+        }
+        #webreg-login-box input  {  /* WebReg login button. */
+            margin: 0.1em 3px 0.1em 3px;
+            padding: 0.1em 0.5em;
+            background-color: #ffff99;
+            border: 2px outset gray;
+            font-weight: bold;
+	    font-size: 16px;
+        }
+        #webreg-login-box input:hover  {
+            /* Mouse hovers over WebReg button. */
+            border: 2px outset red;
+        }
+        #webreg-login-box input:active  {
+            /* WebReg button being clicked. */
+            border: 2px inset red;
+        }
+
+        /* Registrar centered "footer" stuff. */
+
+        #contact-footer {
+            margin-top: 5em;
+            width: 100%;
+            padding: 0.3em 0;
+            background-color: #f1f1e7;
+            border-top: #036 solid 2px;
+            border-bottom: #036 solid 2px;
+            text-align: center;
+            font-style: normal;
+            line-height: 120%;
+        }
+        #contact-footer #footer-office-title {
+            font-size: 1.2em;
+            font-variant: small-caps;
+            letter-spacing: 0.1em;
+            word-spacing: 0.2em;
+        }
+        #contact-footer ul {
+            /* We're using an inline unordered list,    */
+            /*      rather than table formatting.       */
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        #contact-footer li  {  /* For each menu bar item. */
+            /* display <li> horizontally, rather than vertically. */
+            display: inline;
+            padding: 0 0.15em;
+            /* Don't allow text within links to wrap    */
+            /*      if user increases font size.        */
+            white-space: nowrap;
+        }
+        #contact-footer li.reg-email a  {
+            /* Black font, no underline, for Reg email link. */
+            color: black;       /* No need for link coloring. */
+            text-decoration: none;
+        }
+        #contact-footer li.reg-email a:hover { color: #993333; }
+
+
+        /* Box stuff added 9/17/09 for add/drop procedure change message. */
+
+
+        .box { 
+          background: #B5C2D3; 
+          width: 600px;
+        }
+        .boxtop { 
+          background: url(https://www.reg.uci.edu/images/ne-bl.gif) no-repeat top right; 
+        }
+        .boxtop div { 
+          font-size: 0;
+          height: 7px; 
+          background: url(https://www.reg.uci.edu/images/nw-bl.gif) no-repeat top left; 
+        }
+        .boxbottom { 
+          background: url(https://www.reg.uci.edu/images/se-bl.gif) no-repeat bottom right; 
+        }
+        .boxbottom div { 
+          font-size: 0;
+          height: 7px; 
+          background: url(https://www.reg.uci.edu/images/sw-bl.gif) no-repeat bottom left; 
+        }
+        .boxcontent {
+          padding: 0px 7px 0px 7px;
+        }
+        /**** end of new stuff
+        
+
+/****  "INTERNET EXPLORER" OVERRIDE VALUES FOR SUBMIT BUTTONS
+ *
+ * Include the following in your HTML pages so that IE's buttons won't
+ * be over-wide.
+
+    <!--[if lt IE 8]>
+        <style  type="text/css">
+		#webreg-login-box input  {
+			margin: 0.1em 3px 0.1em 3px;
+			padding: 0;
+			width: 11em;
+		}
+        </style>
+    <![endif]-->
+
+ *
+*/
