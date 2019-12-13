@@ -17,10 +17,13 @@ logging.getLogger().setLevel(logging.INFO)
 
 
 class WebReg(object):
-    from ._study_list import get_study_list
-    driver = None
+    from ._utils import _pause, _wait_until_present
+    from ._study_list import get_study_list, _show_study_list, _get_study_list_table_title
+    from ._operation import _goto_enrollment, _goto_waitlist, _check_operation_status
+    from ._operation import _send_enrollment_request, _send_waitlist_request
+
+    #driver = None
     timeout = 10
-    debug = False
 
     def __init__(self, URL='https://www.reg.uci.edu/cgi-bin/webreg-redirect.sh', headless=True, window_size=(1366, 768), debug=False):
         self.debug = debug
@@ -45,14 +48,6 @@ class WebReg(object):
                 self.logout(suppress_warning=True)
             self.driver.close()
             logging.info("Driver has been closed.")
-
-    def _pause(self, ms_min=100, ms_max=800):
-        sleep(randint(ms_min, ms_max) * 0.001)
-
-    def _wait_until_present(self, by: str, element_name: str):
-        element_present = EC.presence_of_element_located(
-            (by, element_name))
-        WebDriverWait(self.driver, self.timeout).until(element_present)
 
     def login(self, username: str, password: str, username_textbox_id='ucinetid', password_textbox_id='password', login_button_name='login_button'):
         # Input Username
@@ -88,24 +83,21 @@ class WebReg(object):
             if not suppress_warning:
                 logging.warning("No Logout Button Found!")
 
-    def get_page_title(self, title_class_name='WebRegTitle'):
+    def get_page_title(self, title_class_name='WebRegTitle') -> str:
         self._wait_until_present(By.CLASS_NAME, title_class_name)
         title = self.driver.find_element_by_class_name(title_class_name)
         return title.text
 
-    def check_unexpected_logout(self, err_msg_class_name='WebRegErrorMsg'):
-        '''Raise exception if logged out unexpectedly'''
-        if self.get_logout_status:
-            msg_divs = self.driver.find_elements_by_class_name(
-                err_msg_class_name)
-            if len(msg_divs) > 0:
-                logging.error(msg_divs[0].text)
-                raise LoginFailedException(msg_divs[0].text)
+    def check_err_msg(self, default='',err_msg_class_name='WebRegErrorMsg') -> str:
+        msg_divs = self.driver.find_elements_by_class_name(err_msg_class_name)
+        if len(msg_divs) > 0:
+            logging.error(msg_divs[0].text)
+            return msg_divs[0].text
+        return default
 
     def get_logout_status(self, logout_msg_class='DivLogoutMsg'):
         '''Return True if logged out'''
         msg_divs = self.driver.find_elements_by_class_name(logout_msg_class)
         return len(msg_divs) > 0
 
-    def _enrollment_window(self):
-        pass
+    
