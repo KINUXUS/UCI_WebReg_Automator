@@ -24,8 +24,12 @@ def _parse_table_HTML(self, html:str)->dict:
     soup = BeautifulSoup(html, 'html.parser')
     text = soup.get_text()
     rows = [i.strip() for i in text.split('\n') if not i.strip() == '']
-    courses = [i for i in rows if not re.match(r'^\d\d\d\d\d', i.strip())==None]
-    return {'title':rows[0], 'body':'\n'.join(courses)}
+    temp_course_list = [i for i in rows if not re.match(r'^\d\d\d\d\d', i.strip())==None]
+    course_list = [[0 for y in range(3)] for x in range(len(courses))]
+    for i in range(len(temp_course_list)):
+        temp_course_list[i] = list(filter(None,temp_course_list[i].split(" ")))
+        course_list[i] = temp_course_list[i][0:3]
+    return {'title':rows[0], 'body':course_list}
 
 def get_study_list(self):
     return self._get_table_HTML()
