@@ -12,7 +12,7 @@ def _goto_enrollment(self, xpathes=("//input[@value='Enrollment Menu']", "//inpu
     for xpath in xpathes:
         button = self.driver.find_elements_by_xpath(xpath)
         if len(button):
-            button.click()
+            button[0].click()
             return
     raise NoElementException('No Enrollment Button Found')
 
@@ -57,7 +57,7 @@ def _send_enrollment_request(self, operation: str, course_code: str, letter_grad
         self.driver.find_element_by_xpath(xpath).send_keys(auth_code)
     # Button
     xpath = "//input[@value='Send Request'][@type='submit']"
-    self.driver.find_element_by_xpath(xpath[operation]).click()
+    self.driver.find_element_by_xpath(xpath).click()
 
 def _send_waitlist_request(self, operation: str, course_code: str, letter_grade=True, variable_units=None, auth_code=None):
     # Radio
@@ -96,4 +96,5 @@ def _check_operation_status(self, default='ok'):
     if err_msg != '' and err_msg.find('N O T E') == -1:
         logging.info('Course operation unsuccessful')
         return err_msg
+    logging.info('Operation Status: Appears OK')
     return default

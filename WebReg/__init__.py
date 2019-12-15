@@ -19,6 +19,7 @@ logging.getLogger().setLevel(logging.INFO)
 class WebReg(object):
     from ._utils import _pause, _wait_until_present
     from ._study_list import get_study_list, _show_study_list, _get_study_list_table_title
+    from ._study_list import _get_table_HTML, _parse_table_HTML
     from ._operation import _goto_enrollment, _goto_waitlist, _check_operation_status
     from ._operation import _send_enrollment_request, _send_waitlist_request
 
@@ -91,7 +92,7 @@ class WebReg(object):
     def check_err_msg(self, default='',err_msg_class_name='WebRegErrorMsg') -> str:
         msg_divs = self.driver.find_elements_by_class_name(err_msg_class_name)
         if len(msg_divs) > 0:
-            logging.error(msg_divs[0].text)
+            logging.info(msg_divs[0].text)
             return msg_divs[0].text
         return default
 
@@ -100,4 +101,9 @@ class WebReg(object):
         msg_divs = self.driver.find_elements_by_class_name(logout_msg_class)
         return len(msg_divs) > 0
 
-    
+    def add_course(self, course_code: str, letter_grade=True, variable_units=None, auth_code=None):
+        self._goto_enrollment()
+        self._send_enrollment_request('add', course_code, letter_grade=letter_grade, variable_units=variable_units, auth_code=auth_code)
+        status = self._check_operation_status(default='ok')
+        if not status == 'ok':
+            logging.warning('Course Operation Failed {}'.format(status))
